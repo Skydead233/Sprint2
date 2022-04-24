@@ -76,7 +76,6 @@ public class Calculation {
             }
         }
     }
-
     public void MonthlyReportCalculation(HashMap<Integer, MonthReport> month) {
         HashMap<Integer, MonthReport> monthlyReportCalculation = month;
         int maxIncomeJanuary = 0;
@@ -85,30 +84,33 @@ public class Calculation {
         int maxExpensesFebruary = 0;
         int maxIncomeMarch = 0;
         int maxExpensesMarch = 0;
-        int max = 0;
+        int maxJ = 0;
+        int maxF = 0;
+        int maxM = 0;
         String maxIncomeJanuaryName = null;
         String maxExpensesJanuaryName = null;
         String maxIncomeFebruaryName = null;
         String maxExpensesFebruaryName = null;
-        //String maxIncomeMarchName = null;
-        //String maxExpensesMarchName = null;
+        String maxIncomeMarchName = null;
+        String maxExpensesMarchName = null;
         for (int i = 0; i < 6; i++) {
             if ((month.get(1).getMonthReport().get(i).getIsExpense())) {
-                maxExpensesJanuary =  month.get(1).getMonthReport().get(i).getSumOfOne() * month.get(1).getMonthReport().get(i).getQuantity();
-                if (maxExpensesJanuary > max) {
-                    max = maxExpensesJanuary;
+                maxExpensesJanuary = month.get(1).getMonthReport().get(i).getSumOfOne() * month.get(1).getMonthReport().get(i).getQuantity();
+                if (maxExpensesJanuary > maxJ) {
+                    maxJ = maxExpensesJanuary;
                     maxExpensesJanuaryName = month.get(1).getMonthReport().get(i).getItemName();
 
                 }
             } else if (!((month.get(1).getMonthReport().get(i).getIsExpense()))) {
-                maxIncomeJanuary =  month.get(1).getMonthReport().get(i).getSumOfOne() * month.get(1).getMonthReport().get(i).getQuantity();
-                if (maxIncomeJanuary > max) {
-                    max = maxIncomeJanuary;
+                maxIncomeJanuary = month.get(1).getMonthReport().get(i).getSumOfOne() * month.get(1).getMonthReport().get(i).getQuantity();
+                if (maxIncomeJanuary > maxJ) {
+                    maxJ = maxIncomeJanuary;
                     maxIncomeJanuaryName = month.get(1).getMonthReport().get(i).getItemName();
+                } else {
+                    maxIncomeJanuary = month.get(1).getMonthReport().get(i - 1).getSumOfOne() * month.get(1).getMonthReport().get(i - 1).getQuantity();
                 }
             }
         }
-        int maxF = 0;
         for (int i = 0; i < 5; i++) {
             if ((month.get(2).getMonthReport().get(i).getIsExpense())) {
                 maxExpensesFebruary = month.get(2).getMonthReport().get(i).getSumOfOne() * month.get(2).getMonthReport().get(i).getQuantity();
@@ -117,25 +119,41 @@ public class Calculation {
                     maxExpensesFebruaryName = month.get(2).getMonthReport().get(i).getItemName();
                 }
             } else if (!((month.get(2).getMonthReport().get(i).getIsExpense()))) {
-                maxIncomeFebruary =  month.get(2).getMonthReport().get(i).getSumOfOne() * month.get(2).getMonthReport().get(i).getQuantity();
+                maxIncomeFebruary = month.get(2).getMonthReport().get(i).getSumOfOne() * month.get(2).getMonthReport().get(i).getQuantity();
                 if (maxIncomeFebruary > maxF) {
                     maxF = maxIncomeFebruary;
                     maxIncomeFebruaryName = month.get(2).getMonthReport().get(i).getItemName();
+                } else {
+                    maxIncomeFebruary = month.get(2).getMonthReport().get(i - 1).getSumOfOne() * month.get(2).getMonthReport().get(i - 1).getQuantity();
                 }
             }
         }
-
+        for (int i = 0; i < 6; i++) {
+            if ((month.get(3).getMonthReport().get(i).getIsExpense())) {
+                maxExpensesMarch = month.get(3).getMonthReport().get(i).getSumOfOne() * month.get(3).getMonthReport().get(i).getQuantity();
+                if (maxExpensesMarch > maxM) {
+                    maxM = maxExpensesMarch;
+                    maxExpensesMarchName = month.get(3).getMonthReport().get(i).getItemName();
+                }
+            } else if (!((month.get(3).getMonthReport().get(i).getIsExpense()))) {
+                maxIncomeMarch = month.get(3).getMonthReport().get(i).getSumOfOne() * month.get(3).getMonthReport().get(i).getQuantity();
+                if (maxIncomeMarch > maxM) {
+                    maxM = maxIncomeMarch;
+                    maxIncomeMarchName = month.get(3).getMonthReport().get(i).getItemName();
+                } else {
+                    maxIncomeMarch = month.get(3).getMonthReport().get(i - 1).getSumOfOne() * month.get(3).getMonthReport().get(i - 1).getQuantity();
+                }
+            }
+        }
         System.out.println("Январь:");
         System.out.println("Самый прибыльный товар: " + maxIncomeJanuaryName + ". Сумма самого прибыльного товара: " + maxIncomeJanuary);
         System.out.println("Наименование самой большой траты: " + maxExpensesJanuaryName + ". Значение этой траты: " + maxExpensesJanuary);
         System.out.println("Февраль:");
-        System.out.println("Самый прибыльный товар: "+ maxIncomeFebruaryName + ". Сумма самого прибыльного товара: "+ maxIncomeFebruary);
-        System.out.println("Наименование самой большой траты: "+ maxExpensesFebruaryName + ". Значение этой траты: "+ maxExpensesFebruary);
-        /*System.out.println("Март:");
-        System.out.println("Самый прибыльный товар: "+ maxIncomeJanuaryName + ". Сумма самого прибыльного товара: "+ maxExpensesJanuary);
-        System.out.println("Наименование самой большой траты: "+ maxIncomeJanuaryName + ". Значение этой траты: "+ maxExpensesJanuary);*/
-
-
+        System.out.println("Самый прибыльный товар: " + maxIncomeFebruaryName + ". Сумма самого прибыльного товара: " + maxIncomeFebruary);
+        System.out.println("Наименование самой большой траты: " + maxExpensesFebruaryName + ". Значение этой траты: " + maxExpensesFebruary);
+        System.out.println("Март:");
+        System.out.println("Самый прибыльный товар: " + maxIncomeMarchName + ". Сумма самого прибыльного товара: " + maxIncomeMarch);
+        System.out.println("Наименование самой большой траты: " + maxExpensesMarchName + ". Значение этой траты: " + maxExpensesMarch);
     }
 }
 
